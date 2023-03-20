@@ -29,10 +29,7 @@ const config = require(path.join(process.cwd(), './config.conf'));
 const server_port = config.port;
 const whitelist = config.whitelist;
 const whitelistMode = config.whitelistMode;
-let listenIp = config.listenIp || '127.0.0.1';
-if(!whitelistMode){
-    listenIp = '0.0.0.0';
-}
+const listenIp = config.listenIp || '127.0.0.1';
 const autorun = config.autorun;
 const characterFormat = config.characterFormat;
 const charaCloudMode = config.charaCloudMode;
@@ -132,7 +129,7 @@ app.use(function (req, res, next) { //Security
      //clientIp = req.connection.remoteAddress.split(':').pop();
     if (whitelistMode === true && !whitelist.includes(clientIp)) {
         console.log('Forbidden: Connection attempt from '+ clientIp+'. If you are attempting to connect, please add your IP address in whitelist or disable whitelist mode in config.conf in root of TavernAI folder.\n');
-        return res.status(403).send('');
+        return res.status(403).send('<b>Forbidden</b>: Connection attempt from <b>'+ clientIp+'</b>. If you are attempting to connect, please add your IP address in whitelist or disable whitelist mode in config.conf in root of TavernAI folder.');
     }
     next();
 });
@@ -497,14 +494,6 @@ app.post("/editcharacter", urlencodedParser, function(request, response){
     }
     char.edit_date = Date.now();
 
-    for(let key in char) {
-        if(typeof char[key] === "string") {
-            char[key] = char[key]
-                .replace(/[\u2018\u2019]/g, "'")
-                .replace(/[\u201C\u201D]/g, '"');
-        }
-    }
-
     char = JSON.stringify(char);
     let target_img = (request.body.avatar_url).replace(`.${characterFormat}`, '');
     if(!filedata){
@@ -776,15 +765,13 @@ app.post("/getcharacters", jsonParser, async function(request, response) {
       let jsonObject;
 
       try {
-        
         jsonObject = json5.parse(imgData);
         jsonObject.avatar = item;
         characters[i] = jsonObject;
         i++;
       } catch (error) {
         if (error instanceof SyntaxError) {
-            
-          console.log(`String [${i}] is not valid JSON! ${error}`);
+          console.log(`String [${i}] is not valid JSON!`);
         } else {
           console.log(`An unexpected error occurred: ${error}`);
         }
@@ -1201,35 +1188,28 @@ app.post("/generate_openai", jsonParser, function(request, response_generate_ope
     };
     
     client.post(api_openai+request_path,args, function (data, response) {
-        try {
-            if(request.body.model === 'gpt-3.5-turbo' || request.body.model === 'gpt-3.5-turbo-0301'){
-                console.log(data);
-                if(data.choices[0].message !== undefined){
-                    console.log(data.choices[0].message);
-                }
-
-
-            }else{
-                console.log(data);
+        if(request.body.model === 'gpt-3.5-turbo' || request.body.model === 'gpt-3.5-turbo-0301'){
+            console.log(data);
+            if(data.choices[0].message !== undefined){
+                console.log(data.choices[0].message);
             }
-            console.log(response.statusCode);
-            if(response.statusCode <= 299){
-                response_generate_openai.send(data);
-            }
-            if(response.statusCode == 401){
-                console.log('Invalid Authentication');
-                response_generate_openai.send({error: true});
-            }
-            if(response.statusCode == 429){
-                console.log('Rate limit reached for requests');
-                response_generate_openai.send({error: true});
-            }
-            if(response.statusCode == 500){
-                console.log('The server had an error while processing your request');
-                response_generate_openai.send({error: true});
-            }
-        }catch (error) {
-            console.log("An error occurred: " + error);
+        }else{
+            console.log(data);
+        }
+        console.log(response.statusCode);
+        if(response.statusCode <= 299){
+            response_generate_openai.send(data);
+        }
+        if(response.statusCode == 401){
+            console.log('Invalid Authentication');
+            response_generate_openai.send({error: true});
+        }
+        if(response.statusCode == 429){
+            console.log('Rate limit reached for requests');
+            response_generate_openai.send({error: true});
+        }
+        if(response.statusCode == 500){
+            console.log('The server had an error while processing your request');
             response_generate_openai.send({error: true});
         }
     }).on('error', function (err) {
