@@ -210,7 +210,7 @@ body {
 }
 
 .mes_text {
-    color: rgb(197,223,226);
+    color: rgb(255,255,255);
     font-weight: 500;
     margin-left: 0px;
 }
@@ -220,7 +220,7 @@ body {
 }
 
 .mes_text i, .mes_text em {
-    color: rgb(106,135,149)
+    color: rgb(156,156,156)
 }
 
 
