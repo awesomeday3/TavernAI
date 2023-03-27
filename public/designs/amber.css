@@ -20,6 +20,8 @@
 }
 
 body {
+    background-image: linear-gradient(rgba(47,46,45,1.00), rgba(47,46,45,1.00));
+    -webkit-backdrop-filter: blur(2px);
     font-family: 'Nanum Gothic', sans-serif;
     scrollbar-color: gray #101010;
     -webkit-font-smoothing: antialiased;
