@@ -833,6 +833,7 @@ display: none;
     font-weight: 400;
     line-height: 1.30rem;
     font-family: 'NanumSquareRound';
+    color: #191919;
 }
 
 label.checkbox span {
