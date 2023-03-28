@@ -600,7 +600,6 @@ display: none;
 #online_status_text-bottom{
     margin-left: 4px;
 	font-size: 0.75rem;
-	color: #000000;
    display: inline-block;
 }
 
@@ -800,6 +799,7 @@ display: none;
 #online_status_text {
     display: inline;
     font-size: 0.75rem;
+    color: #191919;
     top: 10px;
     /*text-shadow: 1px 1px 5px black;*/
 }
