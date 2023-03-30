@@ -92,10 +92,10 @@ a:hover {
     font-size: 15px;
 }
 .mes_text i {
-    color: #191919;
+    color: grey;
 }
 .mes_text em {
-    color: #191919;
+    color: grey;
 }
 .mes_text p {
     margin-top: 0px;
@@ -103,7 +103,7 @@ a:hover {
 }
 .mes_text strong {
     font-weight: bold;
-    color: #191919;
+    color: grey;
 }
 .mes_text h2 {
     font-weight: bold;
