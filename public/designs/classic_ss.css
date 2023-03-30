@@ -14,7 +14,7 @@
 
 body {
     margin: 0;
-    background-image: linear-gradient(rgba(252,252,252,0.4), rgba(252,252,252,0.4)), url(../backgrounds/5.png);
+    background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(../backgrounds/5.png);
     font-family: 'NanumSquareNeo-Variable';
     background-size: auto 100%;
     background-repeat: no-repeat;
@@ -92,10 +92,10 @@ a:hover {
     font-size: 15px;
 }
 .mes_text i {
-    color: #e5e0d8;
+    color: #191919;
 }
 .mes_text em {
-    color: #e5e0d8;
+    color: #191919;
 }
 .mes_text p {
     margin-top: 0px;
@@ -103,7 +103,7 @@ a:hover {
 }
 .mes_text strong {
     font-weight: bold;
-    color: #e5e0d8;
+    color: #191919;
 }
 .mes_text h2 {
     font-weight: bold;
@@ -128,7 +128,7 @@ code {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    /*filter: blur(2px);*/
+    filter: none;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -139,7 +139,7 @@ code {
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    /*filter: blur(2px);*/
+    filter: none;
     background-size: cover;
     /*-webkit-backdrop-filter: blur(2px);*/
     /*backdrop-filter: blur(2px);*/
@@ -162,7 +162,7 @@ code {
     margin-right: auto;
 }
 #chat_header {
-    background: #191b31;
+    background: rgba(255, 255, 250, 0.95);
     height: 100%;
     border-radius: 3px;
     border-style: solid;
@@ -197,6 +197,7 @@ code {
 #chat_header_char_name {
     font-weight: 600;
     margin-left: 10px;
+    color: #191919;
 }
 
 #chat_header_char_info {
@@ -216,12 +217,12 @@ code {
 #form_shell {
     box-shadow: 0 0 2px rgba(200,200,200,0.1);
     white-space:nowrap;
-    background: #191b31A0;
+    background: rgba(255, 255, 250, 0.95);
 }
 #send_form {
     display: grid;
     grid-template-columns: 35px auto 60px;
-    /* background: green; */
+    background: rgba(255, 255, 250, 0.75);
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -232,12 +233,12 @@ code {
     height: 89px;
     resize: none;
     display:inline-block;
-    background-color: #13152c;
+    background-color: rgba(255, 255, 250, 0.6);
     outline: none;
     border:0px solid grey;
     box-shadow: 0 0 2px rgba(200,200,200,0.5);
     padding: 10px;
-    color: #e6e6e6;
+    color: #191919;
     margin-left: 10px;
     margin-top: 10px;
 }
@@ -255,7 +256,7 @@ code {
     margin-left: 4px;
     display: block;
     height: 100%;
-    background: url('../img/send3.png') no-repeat top left;
+    background: url('../img/send5.png') no-repeat top left;
     background-size: 26px auto;
     background-position: center center;
     outline:          none;
@@ -280,7 +281,7 @@ code {
     position: block;
     width:40px;
     height: 40px;
-    background-image: url('../img/options2.png');
+    background-image: url('../img/options3.png');
     background-size: contain;
     background-repeat: no-repeat;
     
@@ -354,12 +355,12 @@ hr {
     border-radius: 5px;
     box-shadow: 0 0 2px rgba(200,200,200,0.1);
     padding: 4px;
-    background: #191b31CC;
+    background: rgba(255, 255, 250, 0.9);
 
     vertical-align: top;
     width: 100%;
     
-    color: rgb(229, 224, 216);
+    color: rgb(10, 10, 10);
     font-size: 15px;
     line-height: 150%;
     /* background: blue; */
@@ -407,6 +408,7 @@ hr {
     margin-left: 5px;
     margin-top: 6px;
     font-weight:bolder;
+    color: #c6c5c3;
 }
 .name_select {
     display: none;
@@ -449,7 +451,6 @@ hr {
         visibility: hidden;
     }
 }
-/*Swipes*/
 .swipe_right,.swipe_left {
     opacity: 0.18;
     display:none;
@@ -461,18 +462,28 @@ hr {
     transform: translateY(-50%);
     z-index: 3; /* Add a z-index */
 }
-.swipe_right img,.swipe_left img {
+.swipe_right img {
 
-    height: 27px;
-    width: 27px;
+    height: 0px;
+    width: 0px;
+ 
+ }
+.swipe_left img {
+    
+    height: 0px;
+    width: 0px;
 
 }
 .swipe_right {
     right: 10px;
+    background-image: url(../img/swipe2_right.png);
+    background-size: 30px 30px;
 }
 .swipe_left {
     opacity: 0.16;
     left: 68px;
+    background-image: url(../img/swipe2_left.png);
+    background-size: 30px 30px;
 }
 br {
    display: block;
@@ -544,6 +555,7 @@ textarea {
     margin: 0px;
     padding: 0px;
     margin-bottom: 1px;
+    color: #dcdcdc;
 }
 #title_your_avatar{
     margin-bottom: 6px;
@@ -735,11 +747,11 @@ input[type=submit], input[type=button] {
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #191b31;
+    background-color: #f1f2e5;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: gray;
+    background: #dedede;
     border-radius: 1px;
     box-shadow: inset 0.05em 0.05em 0 rgba(0, 0, 0, 0.1), inset 0 -0.05em 0 rgba(0, 0, 0, 0.07);
 }
@@ -857,6 +869,7 @@ input[type=submit], input[type=button] {
     vertical-align: top;
     display: inline-block;
     margin-top: 52px;
+    color: #e5e0d8;
 }
 #description_div {
     margin-top: 6px;
@@ -1113,9 +1126,15 @@ input[type=submit], input[type=button] {
 .online_status_indicator_online {
     background-color: green;
 }
-#online_status_text, #online_status_text2, #online_status_text3, #online_status_text4 {
+#online_status_text {
     margin-left: 4px;
     display: inline-block;
+    color: #191919;
+}
+#online_status_text2, #online_status_text3, #online_status_text4 {
+    margin-left: 4px;
+    display: inline-block;
+    color: ##e5e0d8;
 }
 
 /*   */
@@ -1149,10 +1168,11 @@ select {
 }
 #title_api{
     margin-left: 3px;
+    color: #dcdcdc;
 }
 #main_api {
     color:#fff;
-    background-color:#13152c;
+    /*background-color:#13152c;*/
 }
 #kobold_api_logo {
     display:none; 
@@ -1443,6 +1463,9 @@ input[type="range"]::-ms-thumb {
     right: 1ex;
 }
 .mes_edit img {
+    background-image: url(../img/scroll2.png);	
+    background-size: 28px 28px;
+    background-position: center center;
     width:20px;
     height:20px;
 }
@@ -1471,7 +1494,8 @@ input[type="range"]::-ms-thumb {
 .edit_textarea {
     word-wrap: break-word;
     font-weight: lighter;
-    font-size: 18px;
+    font-size: 15px;
+    color: #191919;
     padding: 0px;
     margin: 0px;
     border: none;
@@ -1562,6 +1586,7 @@ label.checkbox :checked + span:after {
     padding: 0px;
     margin-left: 5px;
     margin-bottom: 1px;
+    color: #dcdcdc;
 }
 
 /*Character popup*/
@@ -1726,6 +1751,7 @@ label.checkbox :checked + span:after {
 .header_popup_text_h3 {
     display: inline-block;
     margin-left: 38px;
+    color: #dcdcdc;
 }
 #master_settings_head .header_popup_text_h3 {
     margin-left: 40px;
