@@ -1471,7 +1471,7 @@ input[type="range"]::-ms-thumb {
 .edit_textarea {
     word-wrap: break-word;
     font-weight: lighter;
-    font-size: 18px;
+    font-size: 16px;
     padding: 0px;
     margin: 0px;
     border: none;
