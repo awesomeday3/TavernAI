@@ -163,7 +163,7 @@ body {
 }
 
 #send_button{
-    background: url('../img/send4.png') no-repeat center center;
+    background: url('../img/send5.png') no-repeat center center;
     width: 30px;
     height: 30px;
     margin-top: auto;
@@ -238,6 +238,7 @@ body {
     -moz-transition: color .25s ease-in-out;
     transition: color .25s ease-in-out;
     padding: 11px;
+    background-image: url('../img/options3.png');
 
 	
 }
