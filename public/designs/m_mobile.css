@@ -659,7 +659,6 @@ input[type=submit], input[type=button] {
 }
 /*Left background menu*/
 #bg_menu {
-    visibility: hidden;
     margin-top: 5px;
     margin-left: 2px;
     cursor:pointer;
@@ -674,6 +673,7 @@ input[type=submit], input[type=button] {
 }
 
 #site_logo {
+    visibility: hidden;
     opacity: 0.4;
     display: inline-block;
     width: 130px;
