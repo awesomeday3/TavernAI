@@ -88,6 +88,12 @@ body {
     height: 22px;
     width: 22px;
 }
+#select_chat_div {
+    background-color: #191919;
+}  
+#select_chat_popup {
+    background-color: #191919;
+}
 
 #rm_button_import {
     cursor: pointer;
