@@ -40,7 +40,16 @@ body {
     scrollbar-color: gray #10101000;
     
 }
-
+#dialogue_popup{
+    background-color: #16161680;
+}
+#dialogue_popup_ok {
+    background-color: #16161680;
+}
+#dialogue_popup_cancel {
+    background-color: #16161680;
+    
+}
 ::-webkit-scrollbar-thumb {
     background: gray;
 }
@@ -129,16 +138,16 @@ body {
 }
 
 .options-content {
-    border: 2px solid #3c4174ff;
+    border: 2px solid #16161680;
     overflow: hidden;
     display: block;
     position: absolute;
-    background-color: #191b31FF;
+    background-color: #16161680;
     min-width: 205px;
     z-index: 1;
     border-radius: 8px;
     padding: 8px;
-    box-shadow: 2px 2px 16px #00000080;
+    box-shadow: 2px 2px 16px #16161680;
     translate: 0px -100% 0px;
 }
 .options-content hr {
