@@ -154,6 +154,7 @@ pre {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    filter: none;
     /*filter: blur(2px);*/
     position: absolute;
     width: 100%;
@@ -165,6 +166,7 @@ pre {
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    filter: none;
     /*filter: blur(2px);*/
     background-size: cover;
     /*-webkit-backdrop-filter: blur(2px);*/
