@@ -1982,7 +1982,7 @@ $(document).ready(function(){
         if(Characters.id[chid].filename != 'none'){
                 this_avatar = "characters/"+Characters.id[chid].filename;
         }
-        $("#avatar_load_preview").attr('src',this_avatar+"?v="+Date.now());
+        $("#avatar_load_preview").attr('src',this_avatar+"#"+Date.now());
         $("#name_div").css("display", "none");
 
         $("#form_create").attr("actiontype", "editcharacter");
