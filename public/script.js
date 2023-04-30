@@ -711,7 +711,7 @@ $(document).ready(function(){
             } else {
                 //mes.chid = mes.chid || parseInt(Characters.selectedID);
                 mes.chid = parseInt(Characters.selectedID);     // TODO: properly establish persistent ids
-                avatarImg = Characters.id[mes.chid].filename == 'none' ? "img/fluffy.png" : "characters/"+Characters.id[Characters.selectedID].filename + "#t=" + Date.now();
+                avatarImg = Characters.id[mes.chid].filename == 'none' ? "img/fluffy.png" : "characters/"+Characters.id[Characters.selectedID].filename + "#" + Date.now();
             }
         } else {
             delete mes.chid;
@@ -4214,7 +4214,7 @@ $(document).ready(function(){
         if(!root) { return; }
         let to_chid = parseInt($(this).val());
         let toAvatar = to_chid < 0 ? "User Avatars/" + user_avatar : "characters/" + Characters.id[to_chid].filename;
-        root.find(".avt_img").attr("src", toAvatar + "#t=" + Date.now());
+        root.find(".avt_img").attr("src", toAvatar + "#" + Date.now());
     });
     $(document).on('click', '.mes_edit_cancel', function(){
         hideSwipeButtons();
