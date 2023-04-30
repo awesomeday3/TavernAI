@@ -5939,7 +5939,7 @@ $(document).ready(function(){
             success: function(data){
                 //charaCloud.cardeditor_image = data.image;
 
-                $('.characloud_user_profile_avatar_img').attr('src', `${charaCloudServer}/users/${login}/img/avatar.webp#${Date.now()}`);
+                $('.characloud_user_profile_avatar_img').attr('src', `${charaCloudServer}/users/${login}/img/avatar.webp?v=${Date.now()}`);
 
             },
             error: function (jqXHR, exception) {
