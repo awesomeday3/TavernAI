@@ -1981,7 +1981,6 @@ $(document).ready(function(){
         var this_avatar = default_avatar;
         if(Characters.id[chid].filename != 'none'){
                 this_avatar = "characters/"+Characters.id[chid].filename;
-                this_avatar = "characters/"+item.avatar+"#"+Date.now();
         }
         $("#avatar_load_preview").attr('src',this_avatar+"#"+Date.now());
         $("#name_div").css("display", "none");
