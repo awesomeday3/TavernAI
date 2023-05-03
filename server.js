@@ -91,7 +91,7 @@ var response_getlastversion;
 var api_key_novel;
 var api_key_openai;
 
-var is_colab = false;
+var is_colab = true;
 var charactersPath = 'public/characters/';
 var worldPath = 'public/worlds/';
 var chatsPath = 'public/chats/';
@@ -161,7 +161,7 @@ app.use(function (req, res, next) { //Security
      //clientIp = req.connection.remoteAddress.split(':').pop();
     if (whitelistMode === true && !whitelist.includes(clientIp)) {
         console.log('Forbidden: Connection attempt from '+ clientIp+'. If you are attempting to connect, please add your IP address in whitelist or disable whitelist mode in config.conf in root of TavernAI folder.\n');
-        return res.status(403).send('<b>Forbidden</b>: Connection attempt from <b>'+ clientIp+'</b>. If you are attempting to connect, please add your IP address in whitelist or disable whitelist mode in config.conf in root of TavernAI folder.');
+        return res.status(403).send('');
     }
     next();
 });
@@ -950,7 +950,7 @@ app.post("/importworld", urlencodedParser, async function(request, response){
 app.post("/getbackgrounds", jsonParser, function(request, response){
     var images = getImages("public/backgrounds");
     if(is_colab === true){
-        images = ['tavern.png'];
+        images = ['tavern.png', 'cozynight.png', 'Ngt_City4.png', '1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.png', '11.png', '12.png', '13.png', '14.png'];
     }
     response.send(JSON.stringify(images));
     
