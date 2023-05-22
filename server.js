@@ -789,6 +789,7 @@ async function charaRead(img_url, input_format){
                 return PNGtext.decode(chunk.data);
             });
             var base64DecodedData = Buffer.from(textChunks[0].text, 'base64').toString('utf8');
+	    return base64DecodedData;
         default:
             break;
     }                   
