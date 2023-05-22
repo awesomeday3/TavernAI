@@ -600,7 +600,7 @@ app.post("/createcharacter", urlencodedParser, async function(request, response)
         
         var char = charaFormatData(request.body);//{"name": target_img, "description": request.body.description, "personality": request.body.personality, "first_mes": request.body.first_mes, "avatar": 'none', "chat": Date.now(), "last_mes": '', "mes_example": ''};
         char = JSON.stringify(char);
-if(!filedata){
+        if(!filedata){
             
             await charaWrite('./public/img/fluffy.png', char, charactersPath + target_img, characterFormat, response);
             
