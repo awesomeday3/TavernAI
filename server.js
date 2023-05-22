@@ -93,7 +93,7 @@ var response_getlastversion;
 var api_key_novel;
 var api_key_openai;
 
-var is_colab = false;
+var is_colab = true;
 var charactersPath = 'public/characters/';
 var worldPath = 'public/worlds/';
 var chatsPath = 'public/chats/';
@@ -163,7 +163,7 @@ app.use(function (req, res, next) { //Security
      //clientIp = req.connection.remoteAddress.split(':').pop();
     if (whitelistMode === true && !whitelist.includes(clientIp)) {
         console.log('Forbidden: Connection attempt from '+ clientIp+'. If you are attempting to connect, please add your IP address in whitelist or disable whitelist mode in config.conf in root of TavernAI folder.\n');
-        return res.status(403).send('<b>Forbidden</b>: Connection attempt from <b>'+ clientIp+'</b>. If you are attempting to connect, please add your IP address in whitelist or disable whitelist mode in config.conf in root of TavernAI folder.');
+        return res.status(403).send('');
     }
     next();
 });
