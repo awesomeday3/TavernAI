@@ -11,7 +11,7 @@ var requestTimeout = 60*1000;
 var max_context = 2048;//2048;
 export var characterFormat = 'webp';
 function vl(text) { //Validation security function for html
-return !text ? text : window.DOMPurify.sanitize(text);
+    return !text ? text : window.DOMPurify.sanitize(text);
 }
 function filterFiles(dataTransferItems, types = []) {
     types = types.map(v => v.toString().toLowerCase());
@@ -88,8 +88,8 @@ $(document).ready(function(){
     const config = { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] };
     observer.observe(document.body, config);
     */
-
-var Characters = new CharacterModel({
+    
+    var Characters = new CharacterModel({
         container: document.getElementById("rm_print_charaters_block"),
         input: {
             newCharacter: document.getElementById("rm_button_create"),
@@ -107,7 +107,7 @@ var Characters = new CharacterModel({
         printMessages();
     }.bind(this));
     Characters.on(CharacterView.EVENT_CHARACTER_SELECT, function(event){
-        
+
         if (Characters.selectedID >= 0 && Characters.id[Characters.selectedID].online === true) {
             $('#character_online_editor').attr('value', '🢤 Online Editor');
             document.getElementById("chat_header_char_info").innerHTML = ' designed by <a user_name="' + Characters.id[Characters.selectedID].user_name + '" class="chat_header_char_info_user_name">' + vl(Characters.id[Characters.selectedID].user_name_view) + '</a>';
@@ -149,7 +149,7 @@ var Characters = new CharacterModel({
                 $('#drag_drop_shadow').css('display', 'flex');
             }
         }
-        
+
     });
 
     $("body").on('dragover', function (e) {
@@ -159,7 +159,7 @@ var Characters = new CharacterModel({
         e.preventDefault();
     });
     $("body").on('dragleave', function (e) {
-         if (is_mobile_user) {
+        if (is_mobile_user) {
             return;
         }
         e.preventDefault();
@@ -167,15 +167,15 @@ var Characters = new CharacterModel({
             $('#drag_drop_shadow').css('display', 'none');
         }
     });
-    
-      $("body").on('drop', function (e) {
+
+    $("body").on('drop', function (e) {
         if (is_mobile_user) {
             return;
         }
         e.preventDefault();
         $('#drag_drop_shadow').css('display', 'none');
     });
-
+    
     //CharaCloud
     var charaCloud = charaCloudClient.getInstance();
     var characloud_characters = [];
@@ -207,7 +207,7 @@ var Characters = new CharacterModel({
     var mesStr = '';
     var generatedPromtCache = '';
     var backgrounds = [];
-    var is_colab = true;
+    var is_colab = false;
     var is_checked_colab = false;
     var is_mes_reload_avatar = false;
     var is_nav_toggle = false;
@@ -334,7 +334,7 @@ var Characters = new CharacterModel({
     var hordeCheck;
 
     var runGenerate;
-    
+
     //openai settings
     var temp_openai = 0.9;
     var top_p_openai = 1.0;
@@ -357,9 +357,10 @@ var Characters = new CharacterModel({
     var css_send_form_display = $('<div id=send_form></div>').css('display');
 
     var colab_ini_step = 1;
-    
+
     // Mobile
     var is_mobile_user = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i);
+    
     
     var character_sorting_type = 'NAME';
     $("#rm_folder_order").change(function () {
@@ -379,7 +380,6 @@ var Characters = new CharacterModel({
             console.error(exception);
         }
     });
-
 
 
     $('#send_textarea').on('input', function () {
@@ -446,7 +446,7 @@ var Characters = new CharacterModel({
             complete: function () { }
         });
 
-       /*$('#rm_button_characters').click();*/
+        /*$('#rm_button_characters').click();*/
         $('#bg_chara_cloud').transition({
             opacity: 1.0,
             duration: 1000,
@@ -663,7 +663,7 @@ var Characters = new CharacterModel({
                 contentType: "application/json",
                 success: function(data){
                     if (!('error' in data)) online_status = 'Models list fetched and updated';
-                    
+
                     document.getElementById("hordeQueue").innerHTML = "Connected, model not chosen.";
 
                     $('#horde_model_select').empty();
@@ -673,7 +673,7 @@ var Characters = new CharacterModel({
                     });
 
                     is_pygmalion = true;
-                     if(is_colab){
+                    if(is_colab){
                         let selectElement = $("#horde_model_select");
                         let numOptions = selectElement.children("option").length;
                         let randomIndex = Math.floor(Math.random() * numOptions);
@@ -718,8 +718,8 @@ var Characters = new CharacterModel({
         const response = await fetch("/getbackgrounds", {
             method: "POST",
             headers: {
-             "Content-Type": "application/json",
-             "X-CSRF-Token": token
+                                        "Content-Type": "application/json",
+                                        "X-CSRF-Token": token
                                 },
             body: JSON.stringify({
                         "": ""
@@ -745,8 +745,8 @@ var Characters = new CharacterModel({
         const response = await fetch("/iscolab", {
             method: "POST",
             headers: {
-                                        "Content-Type": "application/json",
-                                        "X-CSRF-Token": token
+                "Content-Type": "application/json",
+                "X-CSRF-Token": token
                                 },
             body: JSON.stringify({
                         "": ""
@@ -757,31 +757,31 @@ var Characters = new CharacterModel({
             const getData = await response.json();
             if(getData.colab_type !== undefined){
                 is_colab = true;
-               let url;
+                let url;
                 if (getData.colab_type == "kobold_model") {
                     $("#main_api").val("kobold");
                     $("#main_api").change();
-                   if(String(getData.colaburl).indexOf('cloudflare')){
+                    if(String(getData.colaburl).indexOf('cloudflare')){
                         url = String(getData.colaburl).split("flare.com")[0] + "flare.com";
                     }else{
                         url = String(getData.colaburl).split("loca.lt")[0] + "loca.lt";
                     }
-
-
+                    
+                    
                     $('#api_url_text').val(url);
                     setTimeout(function () {
                         $('#api_button').click();
                         $('#colab_shadow_popup').css('display', 'none');
                     }, 2000);
                 }
-
+                
                 if(getData.colab_type == "kobold_horde"){
                     main_api = "horde";
                     $("#main_api").val("horde");
                     $("#main_api").change();
                     setTimeout(function () {
                         $('#api_button_horde').click();
-
+                        
                     }, 2000);
 
                 }
@@ -1029,7 +1029,7 @@ var Characters = new CharacterModel({
     async function Generate(type) {
         generateType = type;
         // HORDE
-       if (main_api == 'horde' && horde_model == '') {
+        if (main_api == 'horde' && horde_model == '') {
             document.getElementById("hordeInfo").classList.remove("hidden");
             document.getElementById("hordeQueue").innerHTML = "Error: no horde model chosen.";
             return;
@@ -1319,7 +1319,7 @@ var Characters = new CharacterModel({
             if(type == 'swipe'){
                 chat2.shift();
             }
-            
+
             runGenerate = function(cycleGenerationPromt = ''){
                 generatedPromtCache+=cycleGenerationPromt;
                 if(generatedPromtCache.length == 0){
@@ -1626,12 +1626,11 @@ var Characters = new CharacterModel({
                 // HORDE
                 if(main_api == 'horde'){
                     generate_url = '/generate_horde';
-                    
                 }
                 if(main_api == 'openai'){
                     generate_url = '/generate_openai';
                 }
-               
+
                 jQuery.ajax({
                     type: 'POST', //
                     url: generate_url, //
@@ -1651,7 +1650,7 @@ var Characters = new CharacterModel({
                         hordeCheck = false;
                         $( "#send_button" ).css("display", "block");
                         $( "#loading_mes" ).css("display", "none");
-                        
+
                         callPopup(exception, 'alert_error');
 
                         console.log(exception);
@@ -1659,7 +1658,7 @@ var Characters = new CharacterModel({
                     }
                 });
             }
-            
+
             for (var item of chat2) {//console.log(encode("dsfs").length);
                 chatString = item+chatString;
                 if(getTokenCount(storyString+mesExmString+chatString+anchorTop+anchorBottom+charPersonality)+gap_holder < this_max_context){ //(The number of tokens in the entire prompt) need fix, it must count correctly (added +120, so that the description of the character does not hide)
@@ -1669,9 +1668,9 @@ var Characters = new CharacterModel({
                 }
                 await delay(1); //For disable slow down (encode gpt-2 need fix)
                 //console.log(i+' '+chat.length);
-
-
-
+                
+                
+                
                 if(i == chat2.length-1){
                     //arrMes[arrMes.length-1] = '<START>\n'+arrMes[arrMes.length-1];
                     if(!keep_dialog_examples){
@@ -1756,6 +1755,7 @@ var Characters = new CharacterModel({
                     getMessage = name2+": "+getMessage;
                 }
                 getMessage = getMessage.replace(/\n+$/, "");
+
                 message_already_generated +=getMessage;
 
                 if(message_already_generated.indexOf('You:') === -1 && message_already_generated.indexOf('<|endoftext|>') === -1 && tokens_already_generated < parseInt(this_max_gen) && getMessage.length > 0){
@@ -1772,10 +1772,12 @@ var Characters = new CharacterModel({
                 getMessage = getMessage.replace(new RegExp('<BOT>', "g"), name2);
                 getMessage = getMessage.replace(new RegExp('You:', "g"), name1+':');
             }
+
             if(getMessage.indexOf(name1+":") != -1){
                 getMessage = getMessage.substr(0,getMessage.indexOf(name1+":"));
 
             }
+            
             if(getMessage.indexOf('<|endoftext|>') != -1){
                 getMessage = getMessage.substr(0,getMessage.indexOf('<|endoftext|>'));
 
@@ -1941,7 +1943,7 @@ var Characters = new CharacterModel({
                     chat[i]['name'] = name1;
                 }
             });
- } else {
+        } else {
             let first = Characters.id[Characters.selectedID].first_mes;
             chat[0] = {
                 name: name2,
@@ -1954,15 +1956,15 @@ var Characters = new CharacterModel({
         printMessages();
         select_selected_character(Characters.selectedID);
     }
-    //$("#send_textarea").keypress(function (e) {
-        //if(e.which === 13 && !e.shiftKey && is_send_press == false) {
-            //hideSwipeButtons();
-            //is_send_press = true;
-            //e.preventDefault();
-            //Generate();
+    $("#send_textarea").keypress(function (e) {
+        if(e.which === 13 && !e.shiftKey && is_send_press == false) {
+            hideSwipeButtons();
+            is_send_press = true;
+            e.preventDefault();
+            Generate();
             //$(this).closest("form").submit();
-       //}
-   // });
+        }
+    });
 
     //menu buttons
     
@@ -1993,10 +1995,6 @@ var Characters = new CharacterModel({
         
         $( "#rm_button_selected_ch" ).children("h2").removeClass('seleced_button_style');
         $( "#rm_button_selected_ch" ).children("h2").addClass('deselected_button_style');
-        
-        $(".chareditor-button-close").css('display', 'block');
-
-        $("#character_file_div").css('display', 'none');
     });
     $( "#rm_button_characters" ).click(function() {
         selected_button = 'characters';
@@ -2007,7 +2005,7 @@ var Characters = new CharacterModel({
         selected_button = 'characters';
         select_rm_characters();
     });
-    /*
+     */
     $( "#rm_button_create" ).click(function() {
         selected_button = 'create';
         select_rm_create();
@@ -2019,7 +2017,6 @@ var Characters = new CharacterModel({
     function select_rm_create(){
         // menu buttons
         menu_type = 'create';
-        
         $( "#rm_charaters_block" ).css("display", "none");
         $( "#rm_api_block" ).css("display", "none");
         $( "#rm_ch_create_block" ).css("display", "block");
@@ -2043,7 +2040,9 @@ var Characters = new CharacterModel({
         $( "#rm_button_selected_ch" ).children("h2").removeClass('seleced_button_style');
         $( "#rm_button_selected_ch" ).children("h2").addClass('deselected_button_style');
 
+        $(".chareditor-button-close").css('display', 'block');
 
+        $("#character_file_div").css('display', 'none');
         // set editor to empty data, create mode
         Characters.editor.chardata = {};
         Characters.editor.editMode = false;
@@ -2073,7 +2072,7 @@ var Characters = new CharacterModel({
         $( "#rm_button_selected_ch" ).children("h2").removeClass('seleced_button_style');
         $( "#rm_button_selected_ch" ).children("h2").addClass('deselected_button_style');
         
-    
+        
     }
 
     function getTokenCount(text = "") {
@@ -2084,7 +2083,6 @@ var Characters = new CharacterModel({
         select_rm_create();
         menu_type = 'character_edit';
         
-
         $( "#delete_button_div" ).css("display", "block");
         $( "#rm_button_selected_ch" ).children("h2").removeClass('deselected_button_style');
         $( "#rm_button_selected_ch" ).children("h2").addClass('seleced_button_style');
@@ -2096,8 +2094,8 @@ var Characters = new CharacterModel({
 
         $("#character_file_div").css('display', 'block');
 
-
-       // set editor to edit mode
+        
+        // set editor to edit mode
         Characters.editor.chardata = Characters.id[chid];
         Characters.editor.editMode = true;
         Characters.editor.show();
@@ -2180,7 +2178,7 @@ var Characters = new CharacterModel({
                 complete: function() { bg_menu_toggle = true; $('#bg_menu_content').css("overflow-y", "auto");}
               });
         }else{
-           if(is_mobile_user){
+            if(is_mobile_user){
                 $('#chara_cloud').transition({  
                     marginLeft: "10px",
                     duration: 300,
@@ -2329,7 +2327,7 @@ var Characters = new CharacterModel({
     $( "#master_settings_button" ).click(function() {
         if(!is_master_settings_open){
             is_master_settings_open = true;
-             /*
+            /*
             if(is_advanced_char_open){
                 $("#character_cross").click();
                 $('#master_settings_popup').css('opacity', 1.0);
@@ -2363,11 +2361,11 @@ var Characters = new CharacterModel({
     
     $("#master_settings_cross").click(function() {
         is_master_settings_open = false;
-       
+
         $('#master_settings_popup').transition({opacity: 0.0, duration: animation_rm_duration, easing: animation_rm_easing, complete: function () {
                 $('#master_settings_popup').css('display', 'none');
             }});
-      
+
     });
     $("#dialogue_popup_ok").click(function(){
         $("#shadow_popup").css('display', 'none');
@@ -2570,7 +2568,7 @@ var Characters = new CharacterModel({
                         if (this_bg_style.includes('url(')) {
                             $('#bg'+number_bg).css('background-image', this_bg_style.replace(/url\(['"]?([^'"]*)['"]?\)/i, 'url("'+e.target.result+'")'));
                         }
-                        //$('#bg'+number_bg).css('background-image', 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url('+e.target.result+')');
+                        //$('#bg'+number_bg).css('background-image', 'linear-gradient(rgba(19,21,44,0.75), rgba(19,21,44,0.75)), url('+e.target.result+')');
                         $("#form_bg_download").after("<div class=bg_example><img bgfile='"+html+"' class=bg_example_img src='backgrounds/"+html+"'><img bgfile='"+html+"' class=bg_example_cross src=img/cross.png></div>");
                     },
                     error: function (jqXHR, exception) {
@@ -2588,14 +2586,12 @@ var Characters = new CharacterModel({
         read_bg_load(this);
 
     });
-
     $( "#rm_info_button" ).click(function() {
         $('#rm_info_avatar').html('');
         select_rm_characters();
     });
     //@@@@@@@@@@@@@@@@@@@@@@@@
     //character text poles creating and editing save
-
     $( "#api_button" ).click(function() {
         if($('#api_url_text').val() != ''){
             $("#api_loading").css("display", 'inline-block');
@@ -3147,7 +3143,6 @@ var Characters = new CharacterModel({
         saveSettings();
     });
 
-    
 
     //Novel
     $(document).on('input', '#temp_novel', function() {
@@ -3852,7 +3847,7 @@ var Characters = new CharacterModel({
                     pres_pen_openai: pres_pen_openai,
                     max_context_openai: max_context_openai,
                     amount_gen_openai: amount_gen_openai,
-                     model_openai: model_openai,
+                    model_openai: model_openai,
                     character_sorting_type: character_sorting_type
                     }),
             beforeSend: function(){
@@ -4173,22 +4168,22 @@ var Characters = new CharacterModel({
     }
     //********************
     //***Swipes***
-   // $(document).keydown(function(e) {
-        //if (($(document.activeElement).is('#send_textarea') && $('#send_textarea').val().length === 0) || !$('textarea:focus, input[type="text"]:focus').length) {
-           // if (e.keyCode == 37) {
-        //        // Left arrow key pressed
-                //if(JSON.parse($('#chat').children('.mes').last().attr('is_user')) === false && $('#chat').children('.mes').last().children('.swipe_left').css('display') !== 'none'){
-                    //$('#chat').children('.mes').last().children('.swipe_left').click();
-                //}
-            //} else if (e.keyCode == 39) {
+    $(document).keydown(function(e) {
+        if (($(document.activeElement).is('#send_textarea') && $('#send_textarea').val().length === 0) || !$('textarea:focus, input[type="text"]:focus').length) {
+            if (e.keyCode == 37) {
+                // Left arrow key pressed
+                if(JSON.parse($('#chat').children('.mes').last().attr('is_user')) === false && $('#chat').children('.mes').last().children('.swipe_left').css('display') !== 'none'){
+                    $('#chat').children('.mes').last().children('.swipe_left').click();
+                }
+            } else if (e.keyCode == 39) {
                 // Right arrow key pressed
-                //if(JSON.parse($('#chat').children('.mes').last().attr('is_user')) === false && $('#chat').children('.mes').last().children('.swipe_right').css('display') !== 'none'){
-                    //$('#chat').children('.mes').last().children('.swipe_right').click();
+                if(JSON.parse($('#chat').children('.mes').last().attr('is_user')) === false && $('#chat').children('.mes').last().children('.swipe_right').css('display') !== 'none'){
+                    $('#chat').children('.mes').last().children('.swipe_right').click();
 
-                //}
-            //}
-       //}
-   // });
+                }
+            }
+        }
+    });
     $(document).on('click', '.swipe_right', function(){
         const swipe_duration = 120;
         const swipe_range = '700px';
@@ -5557,7 +5552,6 @@ var Characters = new CharacterModel({
         formData.append('filename_local', Characters.id[Characters.selectedID].filename);
         showCharaCloud();
         prepublishCard(formData);
-        
     });
     function prepublishCard(formData){
         jQuery.ajax({    
@@ -5672,7 +5666,7 @@ var Characters = new CharacterModel({
                 if(type === 'default'){
                     callPopup(`Character added`, 'alert');
                 }
-            
+                
                 var a = await Characters.loadAll();             
                 await characterAddedSign(data.file_name, 'Character added');
                 charaCloud.cardeditor_id_local = Characters.getIDbyFilename(`${data.file_name}.${characterFormat}`);
@@ -5717,7 +5711,7 @@ var Characters = new CharacterModel({
                     target: charaCloud.cardeditor_filename_local
                 });
 
-            
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -5746,7 +5740,7 @@ var Characters = new CharacterModel({
         $('#characloud_search_block').css('display', 'none');
         $('#characloud_characters').css('display', 'block');
         $('#characloud_board').css('display', 'block');
-        
+
     }
     $('.characloud_user_profile_avatar_img').on('error', function () { // Set default avatar
         
@@ -5994,7 +5988,7 @@ var Characters = new CharacterModel({
                 addCategory(item);
             });
         }
-          charaCloud.getCategories() // autocomplete
+        charaCloud.getCategories() // autocomplete
             .then(function (data) {
                 $('.popular-categories-list').html('');
                 $('.popular-categories-title').text('Popular categories');
@@ -6002,17 +5996,18 @@ var Characters = new CharacterModel({
                 top_categories.forEach(function (item, i) {
                     $('.popular-categories-list').append(`<div class="category popular-category">+ ${item.name} (${item.count})</div>`);
                 });
-        })
+
+            })
             .catch(function (error) {
                 console.log(error);
                 switch (error.status) {
-
+                    
                     default:
                         callPopup(`${error.msg}`, 'alert_error');
                         return;
                 }
             });
-
+            
         // Online checking
         let character_data_online;
         let online_type_action = 'publish';
@@ -6286,7 +6281,7 @@ var Characters = new CharacterModel({
         $(this).remove();
     });
     
-   $('.category-form').on('click', '.popular-category', function (e) {
+    $('.category-form').on('click', '.popular-category', function (e) {
         let category = $.trim($(this).text().substr(2).replace(/ *\([^)]*\) */g, ""));
         addCategory(category);
     });
