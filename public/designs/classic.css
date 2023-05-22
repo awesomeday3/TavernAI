@@ -2201,9 +2201,7 @@ label.checkbox :checked + span:after {
     height: 0px;
     width: 0px;
 }
-.modular.shown {
-    display: block !important;
-}
+
 .modular .container {
     display: block;
     position: fixed;
@@ -2230,9 +2228,7 @@ label.checkbox :checked + span:after {
     bottom: 0;
     background: none;
 }
-.shadow:not(.shown) {
-    display: none;
-}
+
 
 .modular .container {
     display: flex;
