@@ -56,6 +56,8 @@ export function select_rm_info(text){
 }
 
 export {token, default_avatar, vl, filterFiles, requestTimeout, max_context};
+export var animation_rm_duration = 200;
+export var animation_rm_easing = "";
 $(document).ready(function(){
     /*
     const observer = new MutationObserver(function(mutations) {
@@ -228,8 +230,6 @@ var Characters = new CharacterModel({
     var timerSaveEdit;
     var durationSaveEdit = 300;
     //animation right menu
-    var animation_rm_duration = 200;
-    var animation_rm_easing = "";
 
     var popup_type = "";
     var bg_file_for_del = '';
@@ -2329,6 +2329,7 @@ var Characters = new CharacterModel({
     $( "#master_settings_button" ).click(function() {
         if(!is_master_settings_open){
             is_master_settings_open = true;
+             /*
             if(is_advanced_char_open){
                 $("#character_cross").click();
                 $('#master_settings_popup').css('opacity', 1.0);
@@ -2338,6 +2339,10 @@ var Characters = new CharacterModel({
                 $('#master_settings_popup').css('opacity', 0.0);
                 $('#master_settings_popup').transition({ opacity: 1.0 ,duration: animation_rm_duration, easing:animation_rm_easing});
             }
+            */
+            $('#master_settings_popup').css('display', 'grid');
+            $('#master_settings_popup').css('opacity', 0.0);
+            $('#master_settings_popup').transition({opacity: 1.0, duration: animation_rm_duration, easing: animation_rm_easing});
         }else{
             $("#master_settings_cross").click();
         }
@@ -2358,13 +2363,11 @@ var Characters = new CharacterModel({
     
     $("#master_settings_cross").click(function() {
         is_master_settings_open = false;
-        if(!is_advanced_char_open){
-            $('#master_settings_popup').transition({ opacity: 0.0 ,duration: animation_rm_duration, easing:animation_rm_easing, complete: function(){
-                    $('#master_settings_popup').css('display', 'none');
+       
+        $('#master_settings_popup').transition({opacity: 0.0, duration: animation_rm_duration, easing: animation_rm_easing, complete: function () {
+                $('#master_settings_popup').css('display', 'none');
             }});
-        }else{
-            $('#master_settings_popup').css('display', 'none');
-        }
+      
     });
     $("#dialogue_popup_ok").click(function(){
         $("#shadow_popup").css('display', 'none');
