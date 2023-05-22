@@ -93,7 +93,7 @@ var response_getlastversion;
 var api_key_novel;
 var api_key_openai;
 
-var is_colab = true;
+var is_colab = false;
 var charactersPath = 'public/characters/';
 var worldPath = 'public/worlds/';
 var chatsPath = 'public/chats/';
@@ -163,7 +163,7 @@ app.use(function (req, res, next) { //Security
      //clientIp = req.connection.remoteAddress.split(':').pop();
     if (whitelistMode === true && !whitelist.includes(clientIp)) {
         console.log('Forbidden: Connection attempt from '+ clientIp+'. If you are attempting to connect, please add your IP address in whitelist or disable whitelist mode in config.conf in root of TavernAI folder.\n');
-        return res.status(403).send('');
+        return res.status(403).send('<b>Forbidden</b>: Connection attempt from <b>'+ clientIp+'</b>. If you are attempting to connect, please add your IP address in whitelist or disable whitelist mode in config.conf in root of TavernAI folder.');
     }
     next();
 });
@@ -795,7 +795,7 @@ async function charaRead(img_url, input_format){
                 return PNGtext.decode(chunk.data);
             });
             var base64DecodedData = Buffer.from(textChunks[0].text, 'base64').toString('utf8');
-	    return base64DecodedData;
+            return base64DecodedData;
         default:
             break;
     }                   
@@ -803,7 +803,7 @@ async function charaRead(img_url, input_format){
 }
 
 app.post("/getcharacters", jsonParser, async function(request, response) {
-try {
+    try {
         const files = await fs.promises.readdir(charactersPath);
         let imgFiles = files.filter(file => file.endsWith(`.${characterFormat}`));
         if(request.body && request.body.filename) {
@@ -815,11 +815,11 @@ try {
         const characters = {};
         let i = 0;
 
-    for (const item of imgFiles) {
+        for (const item of imgFiles) {
             const imgData = await charaRead(charactersPath + item);
             let jsonObject;
             try {
-		    
+
                 jsonObject = json5.parse(imgData);
                 jsonObject.filename = item;
                 characters[i] = jsonObject;
@@ -835,7 +835,7 @@ try {
             }
         }
 
-       response.send(JSON.stringify(characters));
+        response.send(JSON.stringify(characters));
     } catch (error) {
         console.error(error);
         response.sendStatus(500);
@@ -957,7 +957,7 @@ app.post("/importworld", urlencodedParser, async function(request, response){
 app.post("/getbackgrounds", jsonParser, function(request, response){
     var images = getImages("public/backgrounds");
     if(is_colab === true){
-        images = ['tavern.png', 'cozynight.png', 'Ngt_City4.png', '1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.png', '11.png', '12.png', '13.png', '14.png'];
+        images = ['tavern.png'];
     }
     response.send(JSON.stringify(images));
     
@@ -1505,7 +1505,7 @@ function hordeWaitProgress(data){
     try {
         process.stdout.clearLine();
         process.stdout.cursorTo(0);
-	hordeTicker = hordeTicker > 2 ? 0 : hordeTicker+1;
+        hordeTicker = hordeTicker > 2 ? 0 : hordeTicker+1;
         let ticker = ["/", "-", "\\", "|" ][hordeTicker];
         if (data.queue_position > 0) {
             process.stdout.write(ticker + " Queue position: " + data.queue_position);
@@ -1775,7 +1775,7 @@ app.post("/importcharacter", urlencodedParser, async function(request, response)
                     img_name = setCardName(jsonData.name);
                     if(checkCharaProp(img_name).length > 0){
                         let char = charaFormatData(jsonData);
-			char.add_date_local = Date.now();
+                        char.add_date_local = Date.now();
                         char.last_action_date = Date.now();
                         char = JSON.stringify(char);
                         await charaWrite('./uploads/'+filedata.filename, char, charactersPath + img_name, characterFormat, response, {file_name: img_name});
@@ -1794,7 +1794,6 @@ app.post("/importcharacter", urlencodedParser, async function(request, response)
 
 app.post("/importchat", urlencodedParser, function(request, response){
     if(!request.body) return response.sendStatus(400);
-
         var format = request.body.file_type;
         let filedata = request.file;
         let avatar_url = (request.body.filename).replace(`.${characterFormat}`, '');
@@ -1965,7 +1964,7 @@ app.post("/importchat", urlencodedParser, function(request, response){
                     let jsonData = json5.parse(line);
                     
                     if(jsonData.user_name !== undefined){
-			    
+                        
                         fs.copyFile('./uploads/'+filedata.filename, chatsPath+avatar_url+'/'+Date.now()+'.jsonl', (err) => {
                             if(err) {
                                 response.send({error:true});
